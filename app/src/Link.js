@@ -18,6 +18,26 @@ export default class Link extends React.Component {
     };
   }
 
+  fetchImages = async term => {
+  this.setState({
+    status: "searching",
+    term: term,
+    images: []
+  });
+
+  try {
+  const images = await unsplash(term);
+  this.setState({
+    status: "done",
+    images
+  });
+} catch (error) {
+  this.setState({
+    status: "error"
+  });
+}
+};
+
   _onMouseEnter() {
     this.setState({class: STATUS.HOVERED});
   }
